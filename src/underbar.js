@@ -97,7 +97,9 @@
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    
     var accepted = _.filter(collection, test); //contains elems that DO pass test
+
     //filter out elements in accepted, create array of elems that DON'T pass test
     var rejected = _.filter(collection, function(elem) {
       if(_.indexOf(accepted, elem) === -1) { return true; } //-1 = not in accepted
@@ -109,6 +111,16 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var unique = [];
+
+    _.each(array, function(elem) { //cycle through input
+      if(_.indexOf(unique, elem) === -1) { //is the element already in unique?
+        //if not, add it to unique; otherwise, move on.
+        unique.push(elem);
+      }
+    });
+
+    return unique;
   };
 
 
@@ -117,6 +129,13 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    var mapped = [];
+
+    _.each(collection, function(elem) {
+      mapped.push(iterator(elem));
+    });
+
+    return mapped;
   };
 
   /*
