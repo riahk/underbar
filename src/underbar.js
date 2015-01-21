@@ -180,7 +180,7 @@
     var reduction;
     accumulator === undefined ? reduction = collection[0] : reduction = accumulator;
     _.each(collection, function(elem) {
-      if((elem == reduction) && (_.indexOf(collection, elem) === 0)) { }
+      if((elem === reduction) && (_.indexOf(collection, elem) === 0)) { }
         else { reduction = iterator(reduction, elem); }
     });
 
@@ -217,6 +217,16 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    if(iterator === undefined) {
+      iterator = _.identity;
+    }
+
+    if(_.every(collection, function(elem) {
+      if(!(!!iterator(elem))) {
+        return true;
+      }
+    })) { return false; } else { return true; }
+     
   };
 
 
