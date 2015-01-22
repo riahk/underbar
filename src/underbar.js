@@ -221,6 +221,9 @@
       iterator = _.identity;
     }
 
+    if(_.contains(collection, true)) { return true; }
+   
+
     if(_.every(collection, function(elem) {
       if(!(!!iterator(elem))) {
         return true;
