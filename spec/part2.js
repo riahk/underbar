@@ -98,8 +98,8 @@
       });
 
       it('should work when no callback is provided', function() {
-        expect(_.some([true, true, true])).to.be.true; //this line is failing
-        expect(_.some([true, true, false])).to.be.true; //this line is failing
+        expect(_.some([true, true, true])).to.be.true;
+        expect(_.some([true, true, false])).to.be.true;
         expect(_.some([false, false, false])).to.be.false;
       });
     });
