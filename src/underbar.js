@@ -482,6 +482,27 @@
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
+    var args = Array.prototype.slice.call(arguments);
+    args = args.slice(1, args.length); //arrays to compare array to
+
+    var diff = [];
+
+    _.each(array, function(elem) {
+      var compare = elem;
+      var different = true; //assume it is different until proven otherwise
+
+      _.each(args, function(arg) {
+        if(_.indexOf(arg, compare) != -1) {
+          different = false;
+        }
+      });
+
+      if(different) {
+        diff.push(compare);
+      }
+    });
+
+    return diff;
   };
 
   // Returns a function, that, when invoked, will only be triggered at most once
