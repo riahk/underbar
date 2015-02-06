@@ -445,6 +445,38 @@
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
   _.intersection = function() {
+    var arrayNum = arguments.length; //the number of arrays passed in
+    //you should only have to cycle through the elements of ONE of the arrays
+    //but to increase the efficiency, pick the shortest array
+
+    var args = Array.prototype.slice.call(arguments);
+    var shortestArray = args[0];
+    _.each(args, function(elem) {
+      if(elem.length < shortestArray.length) {
+        shortestArray = elem;
+      }
+    });
+
+    var intersection = []; //array to store intersecting elements
+
+    //cycle through the shortest array and compare its elements to the other arrays
+    _.each(shortestArray, function(elem) {
+      var compare = elem;
+      var intersects = true; //assume it matches until proven false
+
+      _.each(args, function(arg) { //cycle through each array
+        if(intersects) { //only check this array if all checked arrays have matches so far
+          if(_.indexOf(arg, compare) === -1) {
+            intersects = false;
+          }
+        }
+      });
+
+      if(intersects) {
+        intersection.push(compare);
+      }
+    });
+    return intersection;
   };
 
   // Take the difference between one array and a number of other arrays.
