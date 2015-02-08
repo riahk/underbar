@@ -393,6 +393,43 @@
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
+    if(typeof iterator === 'string') {
+      var sortFunc = function(elem) {
+        return elem[iterator];
+      };
+    } else { var sortFunc = iterator; }
+
+    var arr = collection;
+
+    //furthestIndex keeps track of the furthest index we've reached
+    for(var furthestIndex = 0  ; furthestIndex < arr.length - 1 ; furthestIndex++) {
+      var leftIndex = furthestIndex; //the left item we're comparing
+      var rightIndex = furthestIndex + 1; //the right item we're comparing
+
+      var leftElem = sortFunc(arr[leftIndex]);
+      var rightElem = sortFunc(arr[rightIndex]);
+
+      var comparing = true;
+     
+      while((leftIndex >= 0) && comparing) {
+        if((leftElem <= rightElem) || (rightElem === undefined)) {
+          comparing = false;
+        } else if((leftElem > rightElem) || (leftElem === undefined)){
+            var left = arr[leftIndex];
+            var right = arr[rightIndex];
+            var temp = arr[leftIndex];
+
+            arr[leftIndex] = right;
+            arr[rightIndex] = temp;
+          }
+        leftIndex -= 1;
+        rightIndex -= 1;
+        leftElem = arr[leftIndex];
+        rightElem = arr[rightIndex];
+      }
+    }
+
+    return arr;
   };
 
   // Zip together two or more arrays with elements of the same index
