@@ -424,8 +424,10 @@
           }
         leftIndex -= 1;
         rightIndex -= 1;
-        leftElem = arr[leftIndex];
-        rightElem = arr[rightIndex];
+        if(leftIndex >= 0) {
+          leftElem = sortFunc(arr[leftIndex]);
+          rightElem = sortFunc(arr[rightIndex]);
+        }
       }
     }
 
